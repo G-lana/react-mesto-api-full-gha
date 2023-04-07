@@ -1,0 +1,20 @@
+.place__like {
+    align-self: end;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 22px;
+    height: 19px;
+    transition: .6s;
+    background-image: url(../../../images/like.svg);
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+.place__like:hover {
+    opacity: .5;
+}
+.place__like_type_active {
+    background-image: url(../../../images/like-active.svg);
+}
