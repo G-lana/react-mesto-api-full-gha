@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 130.193.51.228
+IP 130.193.51.228
 
 Frontend https://g.lana.students.nomoredomains.monster
 
