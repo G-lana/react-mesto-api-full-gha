@@ -1,10 +1,12 @@
+import { BASE_URL } from "../constants";
+
 class Auth {
   constructor({ url }) {
     this._url = url;
   }
 
   register(email, password) {
-    return fetch(`${this._url}signup`, {
+    return fetch(`${this._url}/signup`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -17,7 +19,7 @@ class Auth {
     }).then((res) => this._requestResult(res));
   }
   login({ email, password }) {
-    return fetch(`${this._url}signin`, {
+    return fetch(`${this._url}/signin`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -31,7 +33,7 @@ class Auth {
     }).then((res) => this._requestResult(res));
   }
   isValidToken(token) {
-    return fetch(`${this._url}users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -50,5 +52,6 @@ class Auth {
   }
 }
 export const auth = new Auth({
-  url: 'https://api.g.lana.students.nomoredomains.monster/',
+  url: BASE_URL,
 });
+ 

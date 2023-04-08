@@ -21,10 +21,10 @@ const options = {
     'content-type',
     'Origin',
   ],
+  credentials: true,
 };
 
-app.use(cors());
-app.options('*', cors(options));
+app.use(cors(options));
 
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');

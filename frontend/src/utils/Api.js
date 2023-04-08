@@ -1,3 +1,5 @@
+import { BASE_URL } from '../constants';
+
 class Api {
   constructor({ url, headers }) {
     this._url = url;
@@ -89,7 +91,7 @@ class Api {
 }
 
 export const api = new Api({
-  url: 'https://api.g.lana.students.nomoredomains.monster',
+  url: BASE_URL,
   headers: {
     authorization: '41f9f9e3-d2ec-4659-9c48-5afdcb2e1b41',
     'Content-Type': 'application/json',
