@@ -51,7 +51,10 @@ function App() {
   React.useEffect(() => {
     api
       .getProfile()
-      .then(setCurrentUser)
+      .then((res) => {
+        setCurrentUser(res.data);
+        console.log(res.data)
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -59,7 +62,9 @@ function App() {
     api
       .getInitialCards()
       .then((card) => {
-        setCards(card);
+        setCards(card.data);
+        console.log(card.data);
+        console.log(card);
       })
       .catch((err) => {
         console.log(err);
@@ -70,12 +75,10 @@ function App() {
     auth
       .login(email, password)
       .then((res) => {
-        if (res.token) {
           localStorage.setItem('token', res.token);
           setIsLoggedIn(true);
           setEmail(email.email);
           navigate('/');
-        }
       })
       .catch((err) => {
         console.log(err);
@@ -137,7 +140,6 @@ function App() {
       .register(email, password)
       .then((res) => {
         if (res) {
-          localStorage.setItem('token', res.token);
           setIsSuccessRegister(true);
           handleInfoPopupClick();
           navigate('/sign-in', { replace: true });

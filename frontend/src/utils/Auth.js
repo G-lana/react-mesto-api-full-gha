@@ -3,7 +3,7 @@ class Auth {
     this._url = url;
   }
 
-  register({email, password}) {
+  register(email, password) {
     return fetch(`${this._url}signup`, {
       method: 'POST',
       headers: {
@@ -12,18 +12,18 @@ class Auth {
       },
       body: JSON.stringify({
         email,
-        password
+        password,
       }),
     }).then((res) => this._requestResult(res));
   }
   login({ email, password }) {
     return fetch(`${this._url}signin`, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
       body: JSON.stringify({
         email,
         password,
@@ -33,11 +33,11 @@ class Auth {
   isValidToken(token) {
     return fetch(`${this._url}users/me`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      credentials: 'include',
     }).then((res) => this._requestResult(res));
   }
 

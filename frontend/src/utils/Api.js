@@ -29,8 +29,8 @@ class Api {
   editProfile(name, about) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
       credentials: 'include',
+      headers: this._headers,
       body: JSON.stringify({
         name,
         about,
@@ -40,8 +40,8 @@ class Api {
   addCard(name, link) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
-      headers: this._headers,
       credentials: 'include',
+      headers: this._headers,
       body: JSON.stringify({
         name,
         link,
@@ -51,15 +51,15 @@ class Api {
   deleteCard(id) {
     return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
-      headers: this._headers,
       credentials: 'include',
+      headers: this._headers,
     }).then((res) => this._requestResult(res));
   }
   editAvatar(avatar) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
       credentials: 'include',
+      headers: this._headers,
       body: JSON.stringify({
         avatar,
       }),
@@ -68,15 +68,15 @@ class Api {
   _deleteLike(id) {
     return fetch(`${this._url}/cards/${id}/likes `, {
       method: 'DELETE',
-      headers: this._headers,
       credentials: 'include',
+      headers: this._headers,
     }).then((res) => this._requestResult(res));
   }
   _addLike(id) {
     return fetch(`${this._url}/cards/${id}/likes `, {
       method: 'PUT',
-      headers: this._headers,
       credentials: 'include',
+      headers: this._headers,
     }).then((res) => this._requestResult(res));
   }
   changeLikeCardStatus(id, isLiked) {
@@ -91,6 +91,7 @@ class Api {
 export const api = new Api({
   url: 'https://api.g.lana.students.nomoredomains.monster',
   headers: {
+    authorization: '41f9f9e3-d2ec-4659-9c48-5afdcb2e1b41',
     'Content-Type': 'application/json',
   },
 });
