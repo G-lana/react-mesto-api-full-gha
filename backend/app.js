@@ -4,27 +4,25 @@ const express = require('express');
 
 const app = express();
 
-const options = {
-  origin: [
-    'http://localhost:3000',
-    'https://g.lana.students.nomoredomains.monster',
-    'http://g.lana.students.nomoredomains.monster',
-    'https://api.g.lana.students.nomoredomains.monster',
-  ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: [
-    'Content-Type',
-    'origin',
-    'Authorization',
-    'content-type',
-    'Origin',
-  ],
-  credentials: true,
-};
+// const options = {
+//   origin: [
+//     'http://localhost:3000',
+//     'https://g.lana.students.nomoredomains.monster',
+//     'http://g.lana.students.nomoredomains.monster',
+//   ],
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+//   // preflightContinue: false,
+//   optionsSuccessStatus: 204,
+//   allowedHeaders: [
+//     'Content-Type',
+//     'origin',
+//     'Authorization',
+//     'content-type',
+//     'Origin',
+//   ],
+// };
 
-app.use(cors(options));
+app.use(cors());
 
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
@@ -38,7 +36,7 @@ const { STATUS_INTERNAL_SERVER_ERROR, STATUS_NOT_FOUND } = require('./utils/cons
 const { validateLogin, validateCreateUser } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const DATABASE_URL = 'mongodb://127.0.0.1:27017/mestodb';
 
 app.use(bodyParser.json());
