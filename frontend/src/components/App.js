@@ -51,7 +51,9 @@ function App() {
   React.useEffect(() => {
     api
       .getProfile()
-      .then(setCurrentUser)
+      .then((res) => {
+        setCurrentUser(res.data);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -59,7 +61,7 @@ function App() {
     api
       .getInitialCards()
       .then((card) => {
-        setCards(card);
+        setCards(card.data);
       })
       .catch((err) => {
         console.log(err);
@@ -70,12 +72,10 @@ function App() {
     auth
       .login(email, password)
       .then((res) => {
-        if (res.token) {
           localStorage.setItem('token', res.token);
           setIsLoggedIn(true);
           setEmail(email.email);
           navigate('/');
-        }
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +106,7 @@ function App() {
     api
       .editProfile(data.name, data.about)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -118,7 +118,7 @@ function App() {
     api
       .editAvatar(avatar)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -132,7 +132,7 @@ function App() {
     navigate('/sign-in');
   }
 
-  function handleSubmitRegister({ email, password }) {
+  function handleSubmitRegister( email, password ) {
     auth
       .register(email, password)
       .then((res) => {
@@ -153,7 +153,8 @@ function App() {
   const handleAddPlaceSubmit = (data) => {
     api
       .addCard(data.name, data.link)
-      .then((newCard) => {
+      .then((res) => {
+        const newCard = res.data;
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
@@ -175,14 +176,13 @@ function App() {
   };
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes && card.likes.some((i) => i === currentUser._id);
 
     api
       .changeLikeCardStatus(card._id, isLiked)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
+      .then((res) => {
+        const newCard = res.data;
+        setCards((state) => state.map((c) => (c._id === newCard._id ? newCard : c)));
       })
       .catch((err) => {
         console.log(err);
