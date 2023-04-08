@@ -4,12 +4,12 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/...
+Адрес репозитория: https://github.com/G-lana/react-mesto-api-full-gha.git
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 130.193.51.228
 
-Frontend https://...
+Frontend https://g.lana.students.nomoredomains.monster
 
-Backend https://...
+Backend https://api.g.lana.students.nomoredomains.monster
