@@ -32,7 +32,8 @@ const routesUsers = require('./routes/users');
 const routesCards = require('./routes/cards');
 const auth = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/users');
-const { STATUS_INTERNAL_SERVER_ERROR, STATUS_NOT_FOUND } = require('./utils/constants');
+const { STATUS_INTERNAL_SERVER_ERROR } = require('./utils/constants');
+const NotFoundError = require('./errors/NotFoundError');
 const { validateLogin, validateCreateUser } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -69,8 +70,9 @@ app.use(auth);
 app.use('/users', routesUsers);
 app.use('/cards', routesCards);
 
-app.use((req, res) => {
-  res.status(STATUS_NOT_FOUND).send({ message: 'Запрашиваемый ресурс не найден' });
+app.use('*', (req, res, next) => {
+  const error = new NotFoundError('Запрашиваемый ресурс не найден');
+  next(error);
 });
 
 app.use(errorLogger);
@@ -78,9 +80,10 @@ app.use(errorLogger);
 app.use(errors());
 
 app.use((err, req, res, next) => {
-  const { status = STATUS_INTERNAL_SERVER_ERROR, message = 'На сервере произошла ошибка' } = err;
+  const statusCode = err.status || STATUS_INTERNAL_SERVER_ERROR;
 
-  res.status(status).send({ message });
+  const message = statusCode === STATUS_INTERNAL_SERVER_ERROR ? 'На сервере произошла ошибка' : err.message;
+  res.status(statusCode).send({ message });
 
   next();
 });
